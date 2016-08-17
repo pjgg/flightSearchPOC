@@ -1,7 +1,6 @@
-package org.pjgg.flightSearch.service;
+package org.pjgg.flightSearch.service.pricing;
 
 
-import org.pjgg.flightSearch.connector.ConnectorServiceLocator;
 import org.pjgg.flightSearch.connector.pricingrules.PricingRulesConnector;
 import org.pjgg.flightSearch.connector.pricingrules.PricingRulesPredicates;
 import org.pjgg.flightSearch.dto.FlightSearchRequest;
@@ -11,7 +10,11 @@ import org.pjgg.flightSearch.utils.CustomMaths;
 
 public class PricingRuleImpl implements PriceCalculator {
 
-    private PricingRulesConnector pricingRulesConnector = ConnectorServiceLocator.INSTANCE.getPricingRulesConnector();
+    private PricingRulesConnector pricingRulesConnector;
+
+    public PricingRuleImpl(PricingRulesConnector pricingRulesConnector){
+        this.pricingRulesConnector = pricingRulesConnector;
+    }
 
     @Override
     public Flight apply(final FlightSearchRequest flightSearchRequest, final Flight flight) {

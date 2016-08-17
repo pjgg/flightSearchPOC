@@ -1,8 +1,7 @@
-package org.pjgg.flightSearch.service;
+package org.pjgg.flightSearch.service.pricing;
 
 
 import org.pjgg.flightSearch.dto.FlightSearchRequest;
-import org.pjgg.flightSearch.dto.FlightSearchResponse;
 import org.pjgg.flightSearch.model.Flight;
 
 import java.util.stream.Stream;

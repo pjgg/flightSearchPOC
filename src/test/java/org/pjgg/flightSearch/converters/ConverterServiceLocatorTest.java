@@ -2,9 +2,6 @@ package org.pjgg.flightSearch.converters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.pjgg.flightSearch.service.FlightSearchServiceImpl;
-import org.pjgg.flightSearch.service.FlightServiceLocator;
-import org.pjgg.flightSearch.service.PriceServiceLocator;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;

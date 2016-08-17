@@ -1,7 +1,6 @@
-package org.pjgg.flightSearch.service;
+package org.pjgg.flightSearch.service.pricing;
 
 
-import org.pjgg.flightSearch.connector.ConnectorServiceLocator;
 import org.pjgg.flightSearch.connector.airline.AirlinesConnector;
 import org.pjgg.flightSearch.connector.airline.AirlinesPredicates;
 import org.pjgg.flightSearch.model.Airline;
@@ -11,11 +10,15 @@ import org.pjgg.flightSearch.utils.CustomMaths;
 
 import java.util.stream.Stream;
 
-public class PassengerTypeImpl implements PriceCalculator{
+public class PassengerTypeImpl implements PriceCalculator {
 
-    private AirlinesConnector airlinesConnector = ConnectorServiceLocator.INSTANCE.getAirlinesConnector();
+    private AirlinesConnector airlinesConnector;
 
     private final static int PERCENTAGE = 67; //33% discount
+
+    public PassengerTypeImpl(AirlinesConnector airlinesConnector){
+        this.airlinesConnector = airlinesConnector;
+    }
 
     @Override
     public Flight apply(final FlightSearchRequest flightSearchRequest, final Flight flight) {

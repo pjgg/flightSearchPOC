@@ -4,13 +4,15 @@ package org.pjgg.flightSearch.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
-import org.pjgg.flightSearch.connector.ConnectorServiceLocator;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.pjgg.flightSearch.connector.flight.FlightConnectorImpl;
 import org.pjgg.flightSearch.converters.ConverterServiceLocator;
 import org.pjgg.flightSearch.converters.FlightToFlightSearchResponseConverter;
 import org.pjgg.flightSearch.dto.FlightSearchRequest;
 import org.pjgg.flightSearch.dto.FlightSearchResponse;
 import org.pjgg.flightSearch.model.Flight;
+import org.pjgg.flightSearch.service.pricing.PassengerTypeImpl;
+import org.pjgg.flightSearch.service.pricing.PricingRuleImpl;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -25,8 +27,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ConnectorServiceLocator.class,PriceServiceLocator.class, ConverterServiceLocator.class})
+@RunWith(MockitoJUnitRunner.class)
 public class FlightSearchServiceImplTest {
 
     @Test
@@ -46,27 +47,14 @@ public class FlightSearchServiceImplTest {
         FlightConnectorImpl flightConnectorImpl = mock(FlightConnectorImpl.class);
         FlightToFlightSearchResponseConverter flightToFlightSearchResponseConverter = mock(FlightToFlightSearchResponseConverter.class);
 
-        ConnectorServiceLocator connectorServiceLocator = mock(ConnectorServiceLocator.class);
-        PriceServiceLocator priceServiceLocator = mock(PriceServiceLocator.class);
-        ConverterServiceLocator converterServiceLocator = mock(ConverterServiceLocator.class);
-
-        Whitebox.setInternalState(ConnectorServiceLocator.class, "INSTANCE", connectorServiceLocator);
-        Whitebox.setInternalState(PriceServiceLocator.class, "INSTANCE", priceServiceLocator);
-        Whitebox.setInternalState(ConverterServiceLocator.class, "INSTANCE", converterServiceLocator);
-
         //Stubbing
-        when(priceServiceLocator.getPricingRulesCalculator()).thenReturn(pricingRuleImpl);
-        when(priceServiceLocator.getPassagerTypeCalculator()).thenReturn(passengerTypeImpl);
-        when(connectorServiceLocator.getFlightConnector()).thenReturn(flightConnectorImpl);
-        when(converterServiceLocator.getFlightToFlightSearchResponseConverter()).thenReturn(flightToFlightSearchResponseConverter);
-
         when(flightConnectorImpl.filterEntities(Matchers.any())).thenReturn(flights);
         when(pricingRuleImpl.applyPricingRules(flightSearchRequest, flights)).thenReturn(flights);
         when(passengerTypeImpl.applyPricingRules(flightSearchRequest, flights)).thenReturn(flights);
         when(flightToFlightSearchResponseConverter.convertToList(flights)).thenReturn(FlightSearchResponseList);
 
         //Invoke
-        FlightSearchServiceImpl flightSearchServiceImpl = new FlightSearchServiceImpl();
+        FlightSearchServiceImpl flightSearchServiceImpl = new FlightSearchServiceImpl(flightConnectorImpl, pricingRuleImpl, passengerTypeImpl, flightToFlightSearchResponseConverter);
         List<FlightSearchResponse> result = flightSearchServiceImpl.findFlights(flightSearchRequest);
 
         //Assert

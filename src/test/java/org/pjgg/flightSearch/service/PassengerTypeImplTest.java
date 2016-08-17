@@ -3,14 +3,12 @@ package org.pjgg.flightSearch.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
-import org.pjgg.flightSearch.connector.ConnectorServiceLocator;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.pjgg.flightSearch.connector.airline.AirlinesConnectorImpl;
 import org.pjgg.flightSearch.dto.FlightSearchRequest;
 import org.pjgg.flightSearch.model.Airline;
 import org.pjgg.flightSearch.model.Flight;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
+import org.pjgg.flightSearch.service.pricing.PassengerTypeImpl;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -20,13 +18,13 @@ import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ConnectorServiceLocator.class})
+@RunWith(MockitoJUnitRunner.class)
 public class PassengerTypeImplTest {
 
     @Test
     public void applyAdultTest() {
         //Mock
+        AirlinesConnectorImpl airlinesConnectorImpl = mock(AirlinesConnectorImpl.class);
         FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
         Flight flightMock = mock(Flight.class);
 
@@ -40,7 +38,7 @@ public class PassengerTypeImplTest {
         when(flightMock.getAirline()).thenReturn("airline");
 
         //invoke
-        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl();
+        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl(airlinesConnectorImpl);
         Flight result = passengerTypeImpl.apply(flightSearchRequest, flightMock);
 
         //Asserts
@@ -56,6 +54,7 @@ public class PassengerTypeImplTest {
         //Mock
         FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
         Flight flightMock = mock(Flight.class);
+        AirlinesConnectorImpl airlinesConnectorImpl = mock(AirlinesConnectorImpl.class);
 
         //stubbing
         when(flightSearchRequest.getAdultAmount()).thenReturn(0);
@@ -67,7 +66,7 @@ public class PassengerTypeImplTest {
         when(flightMock.getAirline()).thenReturn("airline");
 
         //invoke
-        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl();
+        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl(airlinesConnectorImpl);
         Flight result = passengerTypeImpl.apply(flightSearchRequest, flightMock);
 
         //Asserts
@@ -85,14 +84,11 @@ public class PassengerTypeImplTest {
         Stream<Airline> streamAirlinesMock = Arrays.asList(a).stream();
 
         //Mock
-        ConnectorServiceLocator connectorServiceLocatorMock = mock(ConnectorServiceLocator.class);
         AirlinesConnectorImpl airlinesConnectorImpl = mock(AirlinesConnectorImpl.class);
-        Whitebox.setInternalState(ConnectorServiceLocator.class, "INSTANCE", connectorServiceLocatorMock);
         FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
         Flight flightMock = mock(Flight.class);
 
         //stubbing
-        when(connectorServiceLocatorMock.getAirlinesConnector()).thenReturn(airlinesConnectorImpl);
         when(airlinesConnectorImpl.filterEntities(Matchers.any())).thenReturn(streamAirlinesMock);
         when(flightSearchRequest.getAdultAmount()).thenReturn(0);
         when(flightSearchRequest.getChildAmount()).thenReturn(0);
@@ -103,7 +99,7 @@ public class PassengerTypeImplTest {
         when(flightMock.getAirline()).thenReturn("airline");
 
         //invoke
-        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl();
+        PassengerTypeImpl passengerTypeImpl = new PassengerTypeImpl(airlinesConnectorImpl);
         Flight result = passengerTypeImpl.apply(flightSearchRequest, flightMock);
 
         //Asserts

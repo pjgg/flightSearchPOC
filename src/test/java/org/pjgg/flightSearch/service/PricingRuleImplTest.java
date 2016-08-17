@@ -3,14 +3,12 @@ package org.pjgg.flightSearch.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
-import org.pjgg.flightSearch.connector.ConnectorServiceLocator;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.pjgg.flightSearch.connector.pricingrules.PricingRulesConnectorImpl;
 import org.pjgg.flightSearch.dto.FlightSearchRequest;
 import org.pjgg.flightSearch.model.Flight;
 import org.pjgg.flightSearch.model.PricingRules;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
+import org.pjgg.flightSearch.service.pricing.PricingRuleImpl;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -20,8 +18,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.*;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ConnectorServiceLocator.class})
+@RunWith(MockitoJUnitRunner.class)
 public class PricingRuleImplTest {
 
     @Test
@@ -33,13 +30,9 @@ public class PricingRuleImplTest {
       //Mock
      FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
      Flight flightMock = mock(Flight.class);
-     ConnectorServiceLocator connectorServiceLocatorMock = mock(ConnectorServiceLocator.class);
      PricingRulesConnectorImpl pricingRulesConnectorImpl = mock(PricingRulesConnectorImpl.class);
-     Whitebox.setInternalState(ConnectorServiceLocator.class, "INSTANCE", connectorServiceLocatorMock);
-
 
      //Stubbing
-     when(connectorServiceLocatorMock.getPricingRulesConnector()).thenReturn(pricingRulesConnectorImpl);
      when(flightSearchRequest.getDepartureFrom()).thenReturn(19);
      when(pricingRulesConnectorImpl.filterEntities(Matchers.any())).thenReturn(streamPricingRulesMock);
      when(flightMock.getPrice()).thenReturn(100.0);
@@ -48,7 +41,7 @@ public class PricingRuleImplTest {
      when(flightMock.getAirline()).thenReturn("airline");
 
      //Invoke
-     PricingRuleImpl pricingRuleImpl = new PricingRuleImpl();
+     PricingRuleImpl pricingRuleImpl = new PricingRuleImpl(pricingRulesConnectorImpl);
      Flight result = pricingRuleImpl.apply(flightSearchRequest, flightMock);
 
      //Asserts

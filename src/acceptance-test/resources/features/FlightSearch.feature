@@ -19,3 +19,4 @@ Feature: Search flight by route
       |       AMS         |           FRA         |       31             |      1    |    0      |    0       |       TK2372     |    157.6       |           3            |
       |       LHR         |           IST         |       15             |      2    |    1      |    1       |       TK8891     |    806         |           2            |
       |       BCN         |           MAD         |       2              |      1    |    2      |    0       |       IB2171     |    909.09      |           2            |
+      |       CDG         |           FRA         |       40             |      1    |    2      |    0       |       IB2171     |    -1          |          0             |

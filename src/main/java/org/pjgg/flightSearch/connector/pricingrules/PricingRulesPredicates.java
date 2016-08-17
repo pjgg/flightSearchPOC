@@ -1,7 +1,6 @@
 package org.pjgg.flightSearch.connector.pricingrules;
 
 
-import org.pjgg.flightSearch.model.Flight;
 import org.pjgg.flightSearch.model.PricingRules;
 
 import java.util.function.Predicate;
