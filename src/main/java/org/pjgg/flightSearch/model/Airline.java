@@ -13,7 +13,7 @@ public class Airline {
 
     public final static double NONE_INFANT_PRICE = -1.0;
 
-    public Airline(String iataCode, String name, Optional<Double> infantPrice){
+    public Airline(String iataCode, String name, Optional<Double> infantPrice) {
         this.code = iataCode;
         this.name = name;
         this.infantPrice = infantPrice.orElse(NONE_INFANT_PRICE);

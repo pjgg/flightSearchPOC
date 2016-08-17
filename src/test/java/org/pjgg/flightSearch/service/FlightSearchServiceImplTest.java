@@ -33,7 +33,7 @@ public class FlightSearchServiceImplTest {
     @Test
     public void findFlightsTest() {
 
-        Flight flight = new Flight("origin","Dest","airline",100.0);
+        Flight flight = new Flight("origin", "Dest", "airline", 100.0);
         Stream<Flight> flights = Arrays.asList(flight).stream();
 
         FlightSearchResponse flightSearchResponse = new FlightSearchResponse("code", 100.0);
@@ -43,7 +43,7 @@ public class FlightSearchServiceImplTest {
         FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
 
         PricingRuleImpl pricingRuleImpl = mock(PricingRuleImpl.class);
-        PassengerTypeImpl passengerTypeImpl= mock(PassengerTypeImpl.class);
+        PassengerTypeImpl passengerTypeImpl = mock(PassengerTypeImpl.class);
         FlightConnectorImpl flightConnectorImpl = mock(FlightConnectorImpl.class);
         FlightToFlightSearchResponseConverter flightToFlightSearchResponseConverter = mock(FlightToFlightSearchResponseConverter.class);
 

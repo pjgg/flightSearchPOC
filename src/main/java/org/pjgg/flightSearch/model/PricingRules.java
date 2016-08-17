@@ -9,7 +9,7 @@ public class PricingRules {
 
     private int percentage;
 
-    public PricingRules(int from, int to, int percentage){
+    public PricingRules(int from, int to, int percentage) {
         this.from = from;
         this.to = to;
         this.percentage = percentage;

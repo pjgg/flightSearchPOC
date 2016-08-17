@@ -6,5 +6,4 @@ import org.pjgg.flightSearch.connector.CommonsConnector;
 
 public interface AirportsConnector extends CommonsConnector<Airport> {
 
-
 }

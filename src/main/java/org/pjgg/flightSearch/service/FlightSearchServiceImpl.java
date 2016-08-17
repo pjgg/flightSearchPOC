@@ -21,19 +21,19 @@ public class FlightSearchServiceImpl implements FlightSearchService {
 
     private PriceCalculator passagerTypeCalcularorService;
 
-    private Converter<Flight,FlightSearchResponse> flightToFlightSearchResponseConverter;
+    private Converter<Flight, FlightSearchResponse> flightToFlightSearchResponseConverter;
 
 
-    public FlightSearchServiceImpl(FlightConnector flightConnector,PriceCalculator pricingRulesCalcularorService,PriceCalculator passagerTypeCalcularorService, Converter<Flight,FlightSearchResponse> flightToFlightSearchResponseConverter ){
+    public FlightSearchServiceImpl(FlightConnector flightConnector, PriceCalculator pricingRulesCalcularorService, PriceCalculator passagerTypeCalcularorService, Converter<Flight, FlightSearchResponse> flightToFlightSearchResponseConverter) {
         this.flightConnector = flightConnector;
         this.pricingRulesCalcularorService = pricingRulesCalcularorService;
         this.passagerTypeCalcularorService = passagerTypeCalcularorService;
         this.flightToFlightSearchResponseConverter = flightToFlightSearchResponseConverter;
     }
 
-    public List<FlightSearchResponse> findFlights(final FlightSearchRequest flightRequest){
+    public List<FlightSearchResponse> findFlights(final FlightSearchRequest flightRequest) {
 
-        final Stream<Flight> flights =  flightConnector.filterEntities(FlightPredicates.match(flightRequest.getAirportOriginCode(), flightRequest.getAirportDestinationCode()));
+        final Stream<Flight> flights = flightConnector.filterEntities(FlightPredicates.match(flightRequest.getAirportOriginCode(), flightRequest.getAirportDestinationCode()));
         final Stream<Flight> flightsWithBasePrice = pricingRulesCalcularorService.applyPricingRules(flightRequest, flights);
         final Stream<Flight> flightsWithBasePriceAndPassagerType = passagerTypeCalcularorService.applyPricingRules(flightRequest, flightsWithBasePrice);
 

@@ -24,34 +24,34 @@ public class PricingRuleImplTest {
     @Test
     public void applyTest() {
 
-      PricingRules p = new PricingRules(16, 30, 100);
-      Stream<PricingRules> streamPricingRulesMock = Arrays.asList(p).stream();
+        PricingRules p = new PricingRules(16, 30, 100);
+        Stream<PricingRules> streamPricingRulesMock = Arrays.asList(p).stream();
 
-      //Mock
-     FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
-     Flight flightMock = mock(Flight.class);
-     PricingRulesConnectorImpl pricingRulesConnectorImpl = mock(PricingRulesConnectorImpl.class);
+        //Mock
+        FlightSearchRequest flightSearchRequest = mock(FlightSearchRequest.class);
+        Flight flightMock = mock(Flight.class);
+        PricingRulesConnectorImpl pricingRulesConnectorImpl = mock(PricingRulesConnectorImpl.class);
 
-     //Stubbing
-     when(flightSearchRequest.getDepartureFrom()).thenReturn(19);
-     when(pricingRulesConnectorImpl.filterEntities(Matchers.any())).thenReturn(streamPricingRulesMock);
-     when(flightMock.getPrice()).thenReturn(100.0);
-     when(flightMock.getOrigin()).thenReturn("origin");
-     when(flightMock.getDestination()).thenReturn("destination");
-     when(flightMock.getAirline()).thenReturn("airline");
+        //Stubbing
+        when(flightSearchRequest.getDepartureFrom()).thenReturn(19);
+        when(pricingRulesConnectorImpl.filterEntities(Matchers.any())).thenReturn(streamPricingRulesMock);
+        when(flightMock.getPrice()).thenReturn(100.0);
+        when(flightMock.getOrigin()).thenReturn("origin");
+        when(flightMock.getDestination()).thenReturn("destination");
+        when(flightMock.getAirline()).thenReturn("airline");
 
-     //Invoke
-     PricingRuleImpl pricingRuleImpl = new PricingRuleImpl(pricingRulesConnectorImpl);
-     Flight result = pricingRuleImpl.apply(flightSearchRequest, flightMock);
+        //Invoke
+        PricingRuleImpl pricingRuleImpl = new PricingRuleImpl(pricingRulesConnectorImpl);
+        Flight result = pricingRuleImpl.apply(flightSearchRequest, flightMock);
 
-     //Asserts
-     assertTrue(result.getAirline().equalsIgnoreCase("airline"));
-     assertTrue(result.getDestination().equalsIgnoreCase("destination"));
-     assertTrue(result.getOrigin().equalsIgnoreCase("origin"));
-     assertTrue(result.getPrice() == 100.0);
+        //Asserts
+        assertTrue(result.getAirline().equalsIgnoreCase("airline"));
+        assertTrue(result.getDestination().equalsIgnoreCase("destination"));
+        assertTrue(result.getOrigin().equalsIgnoreCase("origin"));
+        assertTrue(result.getPrice() == 100.0);
 
-     //Verify
-      verify(pricingRulesConnectorImpl, times(1)).filterEntities(Matchers.any());
+        //Verify
+        verify(pricingRulesConnectorImpl, times(1)).filterEntities(Matchers.any());
 
     }
 

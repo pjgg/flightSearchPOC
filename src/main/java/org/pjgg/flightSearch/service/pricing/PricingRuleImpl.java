@@ -12,7 +12,7 @@ public class PricingRuleImpl implements PriceCalculator {
 
     private PricingRulesConnector pricingRulesConnector;
 
-    public PricingRuleImpl(PricingRulesConnector pricingRulesConnector){
+    public PricingRuleImpl(PricingRulesConnector pricingRulesConnector) {
         this.pricingRulesConnector = pricingRulesConnector;
     }
 
@@ -24,7 +24,6 @@ public class PricingRuleImpl implements PriceCalculator {
         final double basePrice = CustomMaths.applyPercentage(pricingRules.getPercentage(), flight.getPrice());
         return new Flight(flight.getOrigin(), flight.getDestination(), flight.getAirline(), basePrice);
     }
-
 
 
 }

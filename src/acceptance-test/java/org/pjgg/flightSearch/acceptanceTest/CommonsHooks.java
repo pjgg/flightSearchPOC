@@ -38,43 +38,43 @@ public class CommonsHooks {
 
 
     @Before("@loadAirports")
-    public void loadAirports(){
+    public void loadAirports() {
         LOGGER.info("loading airports");
         CsvFileReader<Airport> csvReader = new CsvFileReader();
         File airportCsv = new File(classLoader.getResource(AIRPORT_FILE_NAME).getFile());
-        List<Airport> airports = csvReader.read(airportCsv, new Airport("FakeCode","FakeCity"),Airport.class);
+        List<Airport> airports = csvReader.read(airportCsv, new Airport("FakeCode", "FakeCity"), Airport.class);
         airports.stream().forEach(airport -> airPortsConnector.addEntity(airport));
     }
 
     @Before("@loadFlights")
-    public void loadFlights(){
+    public void loadFlights() {
         LOGGER.info("loading loadFlights");
         CsvFileReader<Flight> csvReader = new CsvFileReader();
         File flightCsv = new File(classLoader.getResource(FLIGHTS_FILE_NAME).getFile());
-        List<Flight> flights = csvReader.read(flightCsv, new Flight("FakeOrignin","FakeDestination", "FakeAirline", 10),Flight.class);
+        List<Flight> flights = csvReader.read(flightCsv, new Flight("FakeOrignin", "FakeDestination", "FakeAirline", 10), Flight.class);
         flights.stream().forEach(flight -> flightConnector.addEntity(flight));
     }
 
     @Before("@loadAirlines")
-    public void loadAirlines(){
+    public void loadAirlines() {
         LOGGER.info("loading airlines");
         CsvFileReader<Airline> csvReader = new CsvFileReader();
         File airlineCsv = new File(classLoader.getResource(AIRLINES_FILE_NAME).getFile());
-        List<Airline> airlines = csvReader.read(airlineCsv, new Airline("FakeIataCode","FakeName", Optional.of(10.0)),Airline.class);
+        List<Airline> airlines = csvReader.read(airlineCsv, new Airline("FakeIataCode", "FakeName", Optional.of(10.0)), Airline.class);
         airlines.stream().forEach(airline -> airlinesConnector.addEntity(airline));
     }
 
     @Before("@loadPricingRules")
-    public void loadPricingRules(){
+    public void loadPricingRules() {
         LOGGER.info("loading pricing rules");
         CsvFileReader<PricingRules> csvReader = new CsvFileReader();
         File pricingRulesCsv = new File(classLoader.getResource(PRICING_RULES_FILE_NAME).getFile());
-        List<PricingRules> pricingRulesEntities = csvReader.read(pricingRulesCsv, new PricingRules(0,0,0),PricingRules.class);
+        List<PricingRules> pricingRulesEntities = csvReader.read(pricingRulesCsv, new PricingRules(0, 0, 0), PricingRules.class);
         pricingRulesEntities.stream().forEach(p -> pricingRulesConnector.addEntity(p));
     }
 
     @After("@CleanData")
-    public void cleanData(){
+    public void cleanData() {
         LOGGER.info("Clean all Data");
         airlinesConnector.removeEntities(AirlinesPredicates.isAlwaysTrue());
         airPortsConnector.removeEntities(AirportPredicates.isAlwaysTrue());

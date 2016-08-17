@@ -67,10 +67,10 @@ public class CsvFileReader<E> {
 
                     PatternMatching patternMatching = new PatternMatching(
                             inCaseOf(Airport.class, airportCsvRecord -> new Airport(tokens[AIRPORT_CODE], tokens[AIRPORT_CITY])),
-                            inCaseOf(Flight.class, flightCsvRecord -> new Flight(tokens[FLIGHT_ORIGIN], tokens[FLIGHT_DESTIONATION],tokens[FLIGHT_AIRLINE],Integer.parseInt(tokens[FLIGHT_PRICE]))),
+                            inCaseOf(Flight.class, flightCsvRecord -> new Flight(tokens[FLIGHT_ORIGIN], tokens[FLIGHT_DESTIONATION], tokens[FLIGHT_AIRLINE], Integer.parseInt(tokens[FLIGHT_PRICE]))),
                             inCaseOf(Airline.class, airlineCsvRecord -> new Airline(tokens[AIRLINE_CODE], tokens[AIRLINE_NAME], Optional.of(Double.valueOf(tokens[AIRLINE_PRICE])))),
                             inCaseOf(PricingRules.class, pricingRulesCsvRecord -> new PricingRules(Integer.parseInt(tokens[PRICING_RULE_FROM]), Integer.parseInt(tokens[PRICING_RULE_TO]), Integer.parseInt(tokens[PRICING_RULE_PERCENTAGE])))
-                            );
+                    );
 
                     entities.add(type.cast(patternMatching.matchFor(fakeInstanceClass)));
                 }

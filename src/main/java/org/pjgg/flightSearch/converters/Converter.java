@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
-public interface Converter <A, B>{
+public interface Converter<A, B> {
 
     default Stream<B> convertToStream(final Stream<A> input) {
         return input.map(element -> this.apply(element));

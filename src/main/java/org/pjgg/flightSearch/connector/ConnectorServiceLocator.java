@@ -22,18 +22,26 @@ public enum ConnectorServiceLocator {
 
     private final PricingRulesConnector pricingRulesConnector;
 
-    private ConnectorServiceLocator(){
+    private ConnectorServiceLocator() {
         airlinesConnector = new AirlinesConnectorImpl();
         airportsConnector = new AirportsConnectorImpl();
         flightConnector = new FlightConnectorImpl();
         pricingRulesConnector = new PricingRulesConnectorImpl();
     }
 
-    public AirlinesConnector getAirlinesConnector(){return this.airlinesConnector;}
+    public AirlinesConnector getAirlinesConnector() {
+        return this.airlinesConnector;
+    }
 
-    public AirportsConnector getAirportsConnector(){return this.airportsConnector;}
+    public AirportsConnector getAirportsConnector() {
+        return this.airportsConnector;
+    }
 
-    public FlightConnector getFlightConnector(){return this.flightConnector;}
+    public FlightConnector getFlightConnector() {
+        return this.flightConnector;
+    }
 
-    public PricingRulesConnector getPricingRulesConnector(){return this.pricingRulesConnector;}
+    public PricingRulesConnector getPricingRulesConnector() {
+        return this.pricingRulesConnector;
+    }
 }

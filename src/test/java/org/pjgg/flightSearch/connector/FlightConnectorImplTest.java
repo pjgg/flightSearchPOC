@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class FlightConnectorImplTest {
 
     @Test
-    public void addEntityTest(){
+    public void addEntityTest() {
 
         Flight flight = new Flight("origin", "destination", "airline", 100.0);
 
@@ -32,7 +32,7 @@ public class FlightConnectorImplTest {
     }
 
     @Test
-    public void removeEntityTest(){
+    public void removeEntityTest() {
 
         Flight flight = new Flight("origin", "destination", "airline", 100.0);
 
@@ -47,7 +47,7 @@ public class FlightConnectorImplTest {
     }
 
     @Test
-    public void findEntityTest(){
+    public void findEntityTest() {
 
         Flight flight = new Flight("origin", "destination", "airline", 100.0);
 

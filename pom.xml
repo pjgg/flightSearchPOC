@@ -17,6 +17,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <cucumber.java.version>1.2.4</cucumber.java.version>
+        <junit.version>4.12</junit.version>
+        <mokito.version>1.10.19</mokito.version>
+        <powermock.api.version>1.6.5</powermock.api.version>
+        <scoverage.version>0.99.10</scoverage.version>
+        <coveralls.version>4.2.0</coveralls.version>
+        <cobertura.version>2.7</cobertura.version>
+        <surfire.version>2.19.1</surfire.version>
     </properties>
 
     <dependencies>
@@ -25,43 +33,75 @@
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>1.2.4</version>
+            <version>${cucumber.java.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.2.4</version>
+            <version>${cucumber.java.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
-            <version>4.12</version>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <version>${mokito.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
-            <version>1.6.5</version>
+            <version>${powermock.api.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
-            <version>1.6.5</version>
+            <version>${powermock.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- coverage -->
+        <dependency>
+            <groupId>org.scoverage</groupId>
+            <artifactId>maven-scoverage-plugin</artifactId>
+            <version>${scoverage.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eluder.coveralls</groupId>
+            <artifactId>coveralls-maven-plugin</artifactId>
+            <version>${coveralls.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>${cobertura.version}</version>
+            <scope>test</scope>
         </dependency>
 
 
+        <!-- acceptanceTest plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surfire.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -71,21 +111,124 @@
             <id>local</id>
         </profile>
 
+        <profile>
+            <id>acceptance</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <repoToken>fakeToken</repoToken>
+                <travisJobId>fakeTravisJobId</travisJobId>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Add Acceptance Test -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/acceptance-test/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-test-resource</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/acceptance-test/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- cobertura -->
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <version>4.2.0</version>
+                        <configuration>
+                            <repoToken>${repoToken}</repoToken>
+                            <sourceDirectories>
+                                <sourceDirectory>src/main/java</sourceDirectory>
+                            </sourceDirectories>
+                            <coberturaReports>
+                                <coberturaReport>
+                                    ${basedir}/target/coverage.xml
+                                </coberturaReport>
+                            </coberturaReports>
+                            <sourceEncoding>UTF-8</sourceEncoding>
+                            <serviceName>travis-ci</serviceName>
+                            <serviceJobId>${travisJobId}</serviceJobId>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.7</version>
+                        <configuration>
+                            <check>false</check>
+                            <format>xml</format>
+                            <maxmem>256m</maxmem>
+                            <!-- aggregated reports for multi-module projects -->
+                            <aggregate>true</aggregate>
+                            <outputDirectory>${basedir}/target</outputDirectory>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.scoverage</groupId>
+                        <artifactId>scoverage-maven-plugin</artifactId>
+                        <version>1.1.0</version>
+                        <configuration>
+                            <highlighting>true</highlighting>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>integration-report
+                                    </report> <!-- select only one report from: report, integration-report and report-only reporters -->
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
     </profiles>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-
-        </build>
+    </build>
 
 </project>

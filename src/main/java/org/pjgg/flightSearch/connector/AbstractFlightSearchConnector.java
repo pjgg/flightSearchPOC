@@ -11,15 +11,15 @@ public abstract class AbstractFlightSearchConnector<E> {
 
     private Collection<E> entities = new ArrayList<E>();
 
-    public void addEntity(E entity){
+    public void addEntity(E entity) {
         entities.add(entity);
     }
 
-    public Stream<E> filterEntities(Predicate<E> predicate){
+    public Stream<E> filterEntities(Predicate<E> predicate) {
         return entities.stream().filter(predicate);
     }
 
-    public void removeEntities(Predicate<E> predicate){
+    public void removeEntities(Predicate<E> predicate) {
         entities.removeAll(
                 filterEntities(predicate).collect(Collectors.toList())
         );

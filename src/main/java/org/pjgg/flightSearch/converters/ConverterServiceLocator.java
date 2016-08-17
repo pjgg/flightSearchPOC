@@ -7,10 +7,12 @@ public enum ConverterServiceLocator {
 
     private final Converter flightToFlightSearchResponseConverter;
 
-    private ConverterServiceLocator(){
+    private ConverterServiceLocator() {
         flightToFlightSearchResponseConverter = new FlightToFlightSearchResponseConverter();
     }
 
-    public Converter getFlightToFlightSearchResponseConverter(){return this.flightToFlightSearchResponseConverter;}
+    public Converter getFlightToFlightSearchResponseConverter() {
+        return this.flightToFlightSearchResponseConverter;
+    }
 
 }

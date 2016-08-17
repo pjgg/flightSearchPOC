@@ -7,7 +7,7 @@ public class FlightSearchResponse {
 
     private double price;
 
-    public FlightSearchResponse(String flightCode, Double price){
+    public FlightSearchResponse(String flightCode, Double price) {
         this.flightCode = flightCode;
         this.price = price;
     }

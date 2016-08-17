@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class FlightToFlightSearchResponseConverterTest {
 
     @Test
-    public void applyTest(){
+    public void applyTest() {
 
         //Mock
         Flight flight = mock(Flight.class);

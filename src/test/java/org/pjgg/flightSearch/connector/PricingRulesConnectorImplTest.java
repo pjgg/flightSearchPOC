@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
 public class PricingRulesConnectorImplTest {
 
     @Test
-    public void addEntityTest(){
+    public void addEntityTest() {
 
-        PricingRules pricingRules = new PricingRules(0,15,100);
+        PricingRules pricingRules = new PricingRules(0, 15, 100);
 
         //invoke
         PricingRulesConnectorImpl pricingRulesConnectorImpl = new PricingRulesConnectorImpl();
@@ -30,9 +30,9 @@ public class PricingRulesConnectorImplTest {
 
 
     @Test
-    public void findEntityTest(){
+    public void findEntityTest() {
 
-        PricingRules pricingRules = new PricingRules(0,15,100);
+        PricingRules pricingRules = new PricingRules(0, 15, 100);
 
         //invoke
         PricingRulesConnectorImpl pricingRulesConnectorImpl = new PricingRulesConnectorImpl();

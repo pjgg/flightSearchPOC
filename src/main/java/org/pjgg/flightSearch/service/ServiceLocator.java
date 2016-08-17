@@ -15,16 +15,22 @@ public enum ServiceLocator {
     private final PriceCalculator passagerTypeCalculator;
     private final FlightSearchService flightSearchService;
 
-    private ServiceLocator(){
+    private ServiceLocator() {
         pricingRulesCalculator = new PricingRuleImpl(ConnectorServiceLocator.INSTANCE.getPricingRulesConnector());
         passagerTypeCalculator = new PassengerTypeImpl(ConnectorServiceLocator.INSTANCE.getAirlinesConnector());
         flightSearchService = new FlightSearchServiceImpl(ConnectorServiceLocator.INSTANCE.getFlightConnector(), pricingRulesCalculator, passagerTypeCalculator, ConverterServiceLocator.INSTANCE.getFlightToFlightSearchResponseConverter());
     }
 
-    public PriceCalculator getPricingRulesCalculator(){return this.pricingRulesCalculator;}
+    public PriceCalculator getPricingRulesCalculator() {
+        return this.pricingRulesCalculator;
+    }
 
-    public PriceCalculator getPassagerTypeCalculator(){return this.passagerTypeCalculator;}
+    public PriceCalculator getPassagerTypeCalculator() {
+        return this.passagerTypeCalculator;
+    }
 
-    public FlightSearchService getFlightSearchService(){return this.flightSearchService;}
+    public FlightSearchService getFlightSearchService() {
+        return this.flightSearchService;
+    }
 
 }

@@ -11,6 +11,7 @@ import org.pjgg.flightSearch.service.ServiceLocator;
 
 import java.util.Collections;
 import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class FlightSearchIT {
@@ -39,7 +40,7 @@ public class FlightSearchIT {
 
         assertTrue("UnExpected amount of flights", flightSearchResponseList.size() == expectedAmountRetrived);
         FlightSearchResponse flightSearchResponse = flightSearchResponseList.stream().filter(FlightSearchResponsePredicate.isAirlineFlightCode(expectedFlightCode)).findFirst().orElse(new FlightSearchResponse("None", -1.0));
-     //   assertFalse(flightSearchResponse.getFlightCode().equalsIgnoreCase("None"));
+        //   assertFalse(flightSearchResponse.getFlightCode().equalsIgnoreCase("None"));
 
         assertTrue("invalid epected price", flightSearchResponse.getPrice() == expectedPrice);
     }

@@ -15,7 +15,7 @@ public class FlightSearchRequest {
 
     private int infantAmount;
 
-    public FlightSearchRequest(String airportOriginCode, String airportDestinationCode, int departureFrom, int adultAmount, int childAmount, int infantAmount){
+    public FlightSearchRequest(String airportOriginCode, String airportDestinationCode, int departureFrom, int adultAmount, int childAmount, int infantAmount) {
         this.airportDestinationCode = airportDestinationCode;
         this.airportOriginCode = airportOriginCode;
         this.departureFrom = departureFrom;

@@ -13,7 +13,7 @@ import static org.pjgg.flightSearch.connector.airport.AirportPredicates.isAlways
 public class AirportsConnectorImplTest {
 
     @Test
-    public void addEntityTest(){
+    public void addEntityTest() {
 
         Airport airport = new Airport("code", "Madrid");
 
@@ -27,7 +27,7 @@ public class AirportsConnectorImplTest {
     }
 
     @Test
-    public void removeEntityTest(){
+    public void removeEntityTest() {
 
         Airport airport = new Airport("code", "Madrid");
 
@@ -42,7 +42,7 @@ public class AirportsConnectorImplTest {
     }
 
     @Test
-    public void findEntityTest(){
+    public void findEntityTest() {
 
         Airport airport = new Airport("code", "Madrid");
 

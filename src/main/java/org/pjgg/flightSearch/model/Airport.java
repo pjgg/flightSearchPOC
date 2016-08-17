@@ -7,7 +7,7 @@ public class Airport {
 
     private String city;
 
-    public Airport(String iatta_code, String city){
+    public Airport(String iatta_code, String city) {
         this.code = iatta_code;
         this.city = city;
     }

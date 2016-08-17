@@ -6,7 +6,9 @@ public class PatternMatching {
 
     private Pattern[] patterns;
 
-    public PatternMatching(Pattern... patterns) { this.patterns = patterns; }
+    public PatternMatching(Pattern... patterns) {
+        this.patterns = patterns;
+    }
 
     public Object matchFor(Object value) {
         for (Pattern pattern : patterns)
