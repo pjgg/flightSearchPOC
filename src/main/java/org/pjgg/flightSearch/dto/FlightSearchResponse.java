@@ -1,11 +1,16 @@
 package org.pjgg.flightSearch.dto;
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class FlightSearchResponse {
 
     private String flightCode;
 
     private double price;
+
+    private final static NumberFormat PRICE_FORMAT = new DecimalFormat("#0.00");
 
     public FlightSearchResponse(String flightCode, Double price) {
         this.flightCode = flightCode;
@@ -21,7 +26,8 @@ public class FlightSearchResponse {
     }
 
     public double getPrice() {
-        return price;
+
+        return Double.valueOf(PRICE_FORMAT.format(price));
     }
 
     public void setPrice(double price) {

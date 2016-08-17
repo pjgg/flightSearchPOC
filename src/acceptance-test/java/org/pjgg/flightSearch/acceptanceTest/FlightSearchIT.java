@@ -42,7 +42,7 @@ public class FlightSearchIT {
         FlightSearchResponse flightSearchResponse = flightSearchResponseList.stream().filter(FlightSearchResponsePredicate.isAirlineFlightCode(expectedFlightCode)).findFirst().orElse(new FlightSearchResponse("None", -1.0));
         //   assertFalse(flightSearchResponse.getFlightCode().equalsIgnoreCase("None"));
 
-        assertTrue("invalid epected price", flightSearchResponse.getPrice() == expectedPrice);
+        assertTrue("invalid epected price. Found" + flightSearchResponse.getPrice(), flightSearchResponse.getPrice() == expectedPrice);
     }
 
 

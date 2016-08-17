@@ -13,10 +13,14 @@ Feature: Search flight by route
     Then you get a list of flights where the following code is included "<expectedFlightCode>" and price is "<expectedPrice>" and the amount of flights retrieved is <expentedAmountOfRecords>
 
     Examples:
-      | airportOriginCode | airportDestinationCode|departureFromNowInDays|adultAmount|childAmount|infantAmount|expectedFlightCode|expectedPrice   |expentedAmountOfRecords |
-      |       BCN         |           MAD         |       17             |      1    |    0      |    0       |       IB2171     |    259         |           2            |
-      |       BCN         |           MAD         |       19             |      1    |    0      |    0       |       LH5496     |    293         |           2            |
-      |       AMS         |           FRA         |       31             |      1    |    0      |    0       |       TK2372     |    157.6       |           3            |
-      |       LHR         |           IST         |       15             |      2    |    1      |    1       |       TK8891     |    806         |           2            |
-      |       BCN         |           MAD         |       2              |      1    |    2      |    0       |       IB2171     |    909.09      |           2            |
-      |       CDG         |           FRA         |       40             |      1    |    2      |    0       |       IB2171     |    -1          |          0             |
+      | airportOriginCode | airportDestinationCode|departureFromNowInDays|adultAmount|childAmount|infantAmount|expectedFlightCode|expectedPrice    |expentedAmountOfRecords |
+      |       BCN         |           MAD         |       17             |      1    |    0      |    0       |       IB2171     |    259          |           2            |
+      |       BCN         |           MAD         |       19             |      1    |    0      |    0       |       LH5496     |    293          |           2            |
+      |       AMS         |           FRA         |       31             |      1    |    0      |    0       |       TK2372     |    157.6        |           3            |
+      |       AMS         |           FRA         |       31             |      1    |    0      |    0       |       TK2659     |    198.4        |           3            |
+      |       AMS         |           FRA         |       31             |      1    |    0      |    0       |       LH5909     |    90.4         |           3            |
+      |       LHR         |           IST         |       15             |      2    |    1      |    1       |       TK8891     |    806          |           2            |
+      |       LHR         |           IST         |       15             |      2    |    1      |    1       |       LH1085     |    481.19       |           2            |
+      |       BCN         |           MAD         |       2              |      1    |    2      |    0       |       IB2171     |    909.09       |           2            |
+      |       BCN         |           MAD         |       2              |      1    |    2      |    0       |       LH5496     |    1028.43      |           2            |
+      |       CDG         |           FRA         |       40             |      1    |    2      |    0       |       IB2171     |    -1           |           0            |
