@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/flightSearch.iml" filepath="$PROJECT_DIR$/flightSearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../javaMicroservicePOC/java9-examples.iml" filepath="$PROJECT_DIR$/../javaMicroservicePOC/java9-examples.iml" />
     </modules>
   </component>
 </project>
